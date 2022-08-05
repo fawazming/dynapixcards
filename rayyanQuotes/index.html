@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" href="../awsm.css"> -->
+    <title>Cards</title>
+</head>
+<script src="../mmm.js"></script>
+<style type="text/css">
+    .hidden{display: none;}
+</style>
+<body>
+    <div id="login">
+        <h1>Login</h1> <br>
+        <form id="loginForm">
+            <input type="text" name="uname" placeholder="Username">
+            <input type="password" name="pass" placeholder="Password">
+            <center><input type="submit" value="Login"></center>
+        </form>
+    </div>
+    <div id="dashboard" class="hidden">
+        <h1>Dashboard</h1>
+        <p>Welcome back, &nbsp; &nbsp; &nbsp; &nbsp; <button id="logout">Logout</button></p>
+        <form id="details">
+            <input type="text" id="titleIn" placeholder="Title">
+            <input type="text" id="contentIn" placeholder="Content"> <br>
+            <input type="text" id="emojiIn" placeholder="Emoji">
+            <input type="color" id="dpIn" placeholder="background-color">
+            <input type="text" id="hashtagIn" placeholder="HashTag">
+            <input type="submit" value="Create Image" id="createImg">
+        </form>
+        <div class="dp"
+            style="padding: 0; border-radius: 2rem; background-color: #920;  color: #fff; width: 1200px; height: 1100px; font-family: 'lato','Titillium web'; text-align: center; padding-top: 15px;"
+            id="dp">
+
+            <img src="img/catalogue_under_dark.png" style="margin: 0; padding: 0; display: block; position: absolute; height: 1100px; width:1200px;">
+
+            <img src="img/catalogue_logo_single.png" style="width: 90px; margin-top: 30px; margin-left: 560px; padding: 0; display: block; position: absolute;">
+
+            <p id="hashtagOut" style="font-size:2.5rem; position: absolute; margin-top: 150px; margin-left: 850px;">codingQuote</p>
+
+            <div class="content" style="background-color: #000; display: block; justify-content: space-around; position: absolute; margin-top: 200px; width:1000px; height:700px; margin-left: 90px; border-radius: 1.5rem; bottom:1; left:1; z-index: 1;">
+
+                <!-- <img src="img/catalogue_beam_dark.png" width="200px" style="left: 0px; top: 0px; position: absolute;"> -->
+                <h1 style="font-size: 4rem; margin-top: 70px;margin-bottom: 10px;" id="titleOut">Whatsapp Images</h1>
+                <p style="font-size: 4rem;" id="contentOut">
+                    Are those product images on whatsapp not too much for you & your customers?
+                    <hr>
+                </p>
+                <p style="font-size: 4rem;" id="emojiOut">😪 😥 😓 😢</p>
+            </div>
+
+            <div class="bottom-logo"
+                style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; position: absolute; margin-top: 1009px; margin-left: 50px; bottom:1; left:1; z-index: 1;">
+                <img src="img/catalogue_logo_name_dark.png" style="width: 250px; margin: 0; padding: 0; ">
+                <p style="width: 250px; margin: 0; margin-left: 550px; padding: 0; font-size: 19px">To get your business a website. Call 0810 809 7322</p>
+            </div>
+        </div>
+        <button id="preview">Preview DP</button>
+        <br>
+        <a id="download" href="#">Download DP</a>
+    </div>
+    
+
+<script type="text/javascript">
+// Login
+    function LoggedIn() {
+        document.querySelector('#login').classList.add('hidden')
+        document.querySelector('#dashboard').classList.remove('hidden')
+    }
+
+    let isLoggedIn = localStorage.getItem('isLoggedIn');
+    if(isLoggedIn === 'true'){
+        LoggedIn()
+    }
+
+    let uname = document.querySelector('[name="uname"]')
+    let pass = document.querySelector('[name="pass"]')
+
+    document.querySelector('#loginForm').addEventListener('submit', (e)=>{
+        e.preventDefault();
+
+        if(uname.value == 'demo' && pass.value == 'demo'){
+        LoggedIn();
+        localStorage.setItem('isLoggedIn', 'true')
+
+        }else{
+        console.log('Invalid Login details');
+        }
+    })
+
+    document.querySelector('#logout').addEventListener('click', ()=>{
+        localStorage.removeItem('isLoggedIn')
+        location.reload()
+    })
+// login
+
+// Cards
+    function field(id) {
+        $(`#${id}Out`).html($(`#${id}In`).val())
+    }
+    function bgcolour(id) {
+        $(`#${id}`).css('background-color',$(`#${id}In`).val())
+    }
+    $('#details').submit(function (e) { 
+        e.preventDefault();
+        field('title');
+        field('content');
+        field('emoji');
+        field('hashtag');
+        bgcolour('dp');
+    });
+    let getCanvas;
+    $('#preview').on('click', function() {
+        h2i();
+    });
+    function h2i() {
+        html2canvas($('#dp'), {
+            onrendered: function(canvas) {
+                $('#preview').append(canvas);
+                getCanvas = canvas;
+            }
+        });
+    }
+    $('#download').on('click', function() { 
+
+          var imgageData = getCanvas.toDataURL("image/png"); 
+            $('#download').attr(
+            "download", `rayyan.png`).attr( 
+                "href", imgageData);
+                
+    });
+// Cards
+</script>
+</body>
+</html>

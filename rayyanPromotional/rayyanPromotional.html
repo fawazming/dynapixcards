@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Rayyan Technologies Promotional</title>
+</head>
+<body>
+	<main style="width: 1200px; height: 1200px; background-color: url('./rayyanPromotional/background.png');">
+		
+	</main>
+
+	<script type="text/javascript">
+		async function jsonGET() {
+			let response = await fetch("https://jsonpad.io/api/v1.0/lists/tese/items", {
+				headers: {
+					Accept: "application/json",
+					Authorization: "Basic ZmF3YXpwcm86bXpZNXp2MWZxVnUyOVJqQ1pQa2orTnU5b29OSTJCWGo="
+				}
+			});
+			let data = await response.json();
+			return data;
+		}
+
+		let show = jsonGET().items;
+
+		(async () => {
+		  let response = await fetch("https://jsonpad.io/api/v1.0/lists/tese/items", {
+			  headers: {
+			    Accept: "application/json",
+			    Authorization: "Basic ZmF3YXpwcm86bXpZNXp2MWZxVnUyOVJqQ1pQa2orTnU5b29OSTJCWGo="
+			  }
+			});
+		  let items = await response.json();
+		  console.log(items)
+		})();
+// 		const async test = () =>{await fetch("https://jsonpad.io/api/v1.0/lists/tese/items", {
+//   headers: {
+//     Accept: "application/json",
+//     Authorization: "Basic ZmF3YXpwcm86bXpZNXp2MWZxVnUyOVJqQ1pQa2orTnU5b29OSTJCWGo="
+//   }
+// }).then(dt=>dt.json()).then((data)=>{return data})};
+
+		// console.log(show); 
+	</script>
+</body>
+</html>
