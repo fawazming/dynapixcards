@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- <link rel="stylesheet" type="text/css" href="../awsm.css"> -->
+	<title>AAIS 24 Grad Invitation Card</title>
+</head>
+<script src="../mmm.js"></script>
+<style type="text/css">
+	.hidden{display: none;}
+</style>
+<body>
+	<div id="login">
+		<h1>Login</h1> <br>
+		<form id="loginForm">
+			<input type="text" name="uname" placeholder="Username">
+			<input type="password" name="pass" placeholder="Password">
+			<center><input type="submit" value="Login"></center>
+		</form>
+	</div>
+	<div id="dashboard" class="hidden">
+		<h1>Dashboard</h1>
+		<p>Welcome back, AAIS &nbsp; &nbsp; &nbsp; &nbsp; <button id="logout">Logout</button></p>
+		<form id="details">
+            <input type="text" id="quoteIn" placeholder="Who to Invite">
+        	<input type="submit" value="Create Image" id="createImg">
+        </form>
+        <div class="dp"
+            style="padding: 0; border-radius: 2rem;  background-color:#fff; width: 1280px; height: 905px; font-family: Miller;  padding-top: 15px;"
+            id="dp">
+            <img src="./aais.jpg"
+                style="width: 1280px; margin-left: 0px; margin-top: 0px; padding: 0; position: absolute;">
+			<p style="font-size: 2.8rem; text-align: left; margin-left: 430px; margin-top: 370px; color:#000; z-index:3; position: absolute;"> <i id="quoteOut">Alhaji Fawaz Ibraheem</i>  </p>
+            <div class="content"
+                style="">
+
+                
+                
+
+               
+            </div>
+        </div>
+	    <button id="preview">Preview DP</button>
+	    <br>
+	    <a id="download" href="#">Download DP</a>
+	</div>
+	
+
+<script type="text/javascript">
+// Login
+	function LoggedIn() {
+		document.querySelector('#login').classList.add('hidden')
+		document.querySelector('#dashboard').classList.remove('hidden')
+	}
+
+	let isLoggedIn = localStorage.getItem('isLoggedIn');
+	if(isLoggedIn === 'true'){
+		LoggedIn()
+	}
+
+	let uname = document.querySelector('[name="uname"]')
+	let pass = document.querySelector('[name="pass"]')
+
+	document.querySelector('#loginForm').addEventListener('submit', (e)=>{
+		e.preventDefault();
+
+		if(uname.value == 'aais24' && pass.value == 'aais42'){
+		LoggedIn();
+		localStorage.setItem('isLoggedIn', 'true')
+
+		}else{
+		console.log('Invalid Login details');
+		}
+	})
+
+	document.querySelector('#logout').addEventListener('click', ()=>{
+		localStorage.removeItem('isLoggedIn')
+		location.reload()
+	})
+// login
+
+// Cards
+	function field(id) {
+		$(`#${id}Out`).html($(`#${id}In`).val())
+	}
+
+        $('#details').submit(function (e) { 
+            e.preventDefault();
+            field('quote');
+        });
+        let getCanvas;
+        $('#preview').on('click', function() {
+            h2i();
+        });
+
+        function h2i() {
+            html2canvas($('#dp'), {
+                onrendered: function(canvas) {
+                    $('#preview').append(canvas);
+                    getCanvas = canvas;
+                }
+            });
+        }
+
+        $('#download').on('click', function() { 
+        	  var nm = $(`#quoteIn`).val();
+              var imgageData = getCanvas.toDataURL("image/png"); 
+                $('#download').attr(
+                "download", `AAIS24_Graduation_Invite_${nm}.png`).attr( 
+                    "href", imgageData);
+                    
+        });
+// Cards
+</script>
+</body>
+</html>
